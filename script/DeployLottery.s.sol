@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {Script} from "forge-std/Script.sol";
+import {Script} from "../lib/forge-std/src/Script.sol";
 import {Lottery} from "../src/Lottery.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 
 contract DeployLottery is Script {
-    function run() public returns (Lottery) {
+    function run() public returns (Lottery, HelperConfig) {
         HelperConfig helperConfig = new HelperConfig();
         (
             uint64 subscriptionId,
@@ -24,6 +24,6 @@ contract DeployLottery is Script {
 
         vm.stopBroadcast();
 
-        return lottery;
+        return (lottery, helperConfig);
     }
 }
