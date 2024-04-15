@@ -31,7 +31,7 @@ import {AutomationCompatibleInterface} from
 /**
  * @title A sample Lottery Contract
  * @author Jacob Fecunda
- * @notice This contract is for creating a sample lottery contract
+ * @notice This contract is for creating a sample lottery
  * @dev This implements the Chainlink VRF Version 2
  */
 contract Lottery is VRFConsumerBaseV2, AutomationCompatibleInterface {
