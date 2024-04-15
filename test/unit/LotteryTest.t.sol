@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {Test, console} from "../../lib/forge-std/src/Test.sol";
+import {Test, console} from "forge-std/Test.sol";
 import {DeployLottery} from "../../script/DeployLottery.s.sol";
 import {Lottery} from "../../src/Lottery.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
@@ -58,6 +58,20 @@ contract LotteryTest is Test {
         vm.expectEmit(true, false, false, false, address(lottery));
 
         emit LotteryEnter(PLAYER);
+        lottery.enterLottery{value: ENTRANCE_FEE}();
+    }
+
+    function testCantEnterWhenLotteryIsCalculating() public {
+        vm.prank(PLAYER);
+        lottery.enterLottery{value: ENTRANCE_FEE}();
+
+        vm.warp(block.timestamp + interval + 1);
+
+        vm.roll(block.number + 1);
+
+        lottery.performUpkeep("");
+        vm.expectRevert(Lottery.Lottery__LotteryNotOpen.selector);
+        vm.prank(PLAYER);
         lottery.enterLottery{value: ENTRANCE_FEE}();
     }
 }

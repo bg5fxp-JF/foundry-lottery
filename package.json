@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@chainlink/contracts": "^1.0.0"
+    "@chainlink/contracts": "^1.0.0",
+    "solmate": "^6.2.0"
   }
 }
